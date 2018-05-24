@@ -18,7 +18,6 @@ window.addEventListener('load', function() {
         rb.addEventListener('click', clickRadioGroup);
         rb.addEventListener('keydown', keyDownRadioGroup);
         rb.addEventListener('focus', focusRadioButton);
-        rb.addEventListener('blur', blurRadioButton);
     }
 
 });
@@ -94,15 +93,16 @@ function getImage(node) {
 }
 
 function setRadioButton(node, state) {
-    var image = getImage(node);
 
     if (state == 'true') {
-        node.setAttribute('aria-checked', 'true')
+        node.setAttribute('aria-checked', 'true');
+        node.classList.add('active');
         node.tabIndex = 0;
         node.focus()
     }
     else {
-        node.setAttribute('aria-checked', 'false')
+        node.setAttribute('aria-checked', 'false');
+        node.classList.remove('active');
         node.tabIndex = -1;
     }
 }
@@ -171,8 +171,4 @@ function keyDownRadioGroup(event) {
 
 function focusRadioButton(event) {
     event.currentTarget.className += ' active';
-}
-
-function blurRadioButton(event) {
-    event.currentTarget.className = event.currentTarget.className.replace(' active','');
 }
