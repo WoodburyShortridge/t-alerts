@@ -1,9 +1,6 @@
-const expands = document.querySelectorAll('.helptext__link');
-const expand = expands[0];
-const closes = document.querySelectorAll('.helptext__message--close');
-const close = closes[0];
-const helps = document.querySelectorAll('.helptext__message');
-const help = helps[0];
+const expand = document.querySelector('.helptext__link');
+const close = document.querySelector('.helptext__message--close');
+const help = document.querySelector('.helptext__message');
 
 function toggleAria(el) {
     let x = el.getAttribute("aria-expanded");
@@ -21,6 +18,7 @@ expand.onclick = function (event) {
     let isActive = expand.getAttribute("aria-expanded") === "true";
     if (isActive === false) {
         toggleAria(expand);
+        help.setAttribute("tabindex", "-1");
         help.focus()
     }
 };
