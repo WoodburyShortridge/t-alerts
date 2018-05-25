@@ -1,30 +1,24 @@
-var KEYCODE = {
+const KEYCODE = {
     DOWN: 40,
     LEFT: 37,
     RIGHT: 39,
     SPACE: 32,
     UP: 38
+};
+
+window.addEventListener('load', () => {
+    const radiobuttons = document.querySelectorAll('[role=radio]');
+
+for (const rb of radiobuttons) {
+    rb.addEventListener('click', clickRadioGroup);
+    rb.addEventListener('keydown', keyDownRadioGroup);
+    rb.addEventListener('focus', focusRadioButton);
 }
-
-window.addEventListener('load', function() {
-
-    var radiobuttons = document.querySelectorAll('[role=radio]');
-
-    for(var i = 0; i < radiobuttons.length; i++ ) {
-        var rb = radiobuttons[i];
-
-        console.log(rb.tagName + " " + rb.id)
-
-        rb.addEventListener('click', clickRadioGroup);
-        rb.addEventListener('keydown', keyDownRadioGroup);
-        rb.addEventListener('focus', focusRadioButton);
-    }
-
 });
 
 function firstRadioButton(node) {
 
-    var first = node.parentNode.firstChild;
+    let first = node.parentNode.firstChild;
 
     while(first) {
         if (first.nodeType === Node.ELEMENT_NODE) {
@@ -38,7 +32,7 @@ function firstRadioButton(node) {
 
 function lastRadioButton(node) {
 
-    var last = node.parentNode.lastChild;
+    let last = node.parentNode.lastChild;
 
     while(last) {
         if (last.nodeType === Node.ELEMENT_NODE) {
@@ -52,7 +46,7 @@ function lastRadioButton(node) {
 
 function nextRadioButton(node) {
 
-    var next = node.nextSibling;
+    let next = node.nextSibling;
 
     while(next) {
         if (next.nodeType === Node.ELEMENT_NODE) {
@@ -66,7 +60,7 @@ function nextRadioButton(node) {
 
 function previousRadioButton(node) {
 
-    var prev = node.previousSibling;
+    let prev = node.previousSibling;
 
     while(prev) {
         if (prev.nodeType === Node.ELEMENT_NODE) {
@@ -78,23 +72,9 @@ function previousRadioButton(node) {
     return null;
 }
 
-function getImage(node) {
-
-    var child = node.firstChild;
-
-    while(child) {
-        if (child.nodeType === Node.ELEMENT_NODE) {
-            if (child.tagName === 'IMG') return child;
-        }
-        child = child.nextSibling;
-    }
-
-    return null;
-}
-
 function setRadioButton(node, state) {
 
-    if (state == 'true') {
+    if (state === 'true') {
         node.setAttribute('aria-checked', 'true');
         node.classList.add('active');
         node.tabIndex = 0;
@@ -108,13 +88,13 @@ function setRadioButton(node, state) {
 }
 
 function clickRadioGroup(event) {
-    var type = event.type;
+    const type = event.type;
 
     if (type === 'click') {
 
-        var node = event.currentTarget;
+        const node = event.currentTarget;
 
-        var radioButton = firstRadioButton(node);
+        let radioButton = firstRadioButton(node);
 
         while (radioButton) {
             setRadioButton(radioButton, "false");
@@ -129,16 +109,16 @@ function clickRadioGroup(event) {
 }
 
 function keyDownRadioGroup(event) {
-    var type = event.type;
-    var next = false;
+    const type = event.type;
+    let next = false;
 
     if(type === "keydown"){
-        var node = event.currentTarget;
+        const node = event.currentTarget;
 
         switch (event.keyCode) {
             case KEYCODE.DOWN:
             case KEYCODE.RIGHT:
-                var next = nextRadioButton(node);
+                next = nextRadioButton(node);
                 if (!next) next = firstRadioButton(node);
                 break;
 
@@ -154,7 +134,7 @@ function keyDownRadioGroup(event) {
         }
 
         if (next) {
-            var radioButton = firstRadioButton(node);
+            let radioButton = firstRadioButton(node);
 
             while (radioButton) {
                 setRadioButton(radioButton, "false");
@@ -170,5 +150,5 @@ function keyDownRadioGroup(event) {
 }
 
 function focusRadioButton(event) {
-    event.currentTarget.className += ' active';
+    event.currentTarget.classList.add('active');
 }

@@ -19,6 +19,11 @@
     margin-bottom: 1rem;
 }
 
+#trip i {
+    display: flex;
+    justify-content: center;
+}
+
 @font-face {
     font-family: LatoLatinWeb;
     src: url(../fonts/LatoLatin-Regular-6cfad5881181ae658a6efdd68889a690.eot?vsn=d);
